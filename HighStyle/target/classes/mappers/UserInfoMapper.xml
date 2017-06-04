@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yjc.wdb.highlighter.User_InfoMapper">
+<insert id="create">
+	insert into user_info (user_id, user_pw, user_name, user_email, gender, birth_date, address, phone,
+	prof_photo, ext_exp, bank, bank_ac_num, college, college_dept, par_id, user_grade) 
+	values(#{user_id}, #{user_pw}, #{user_name}, #{user_email}, #{gender}, #{birth_date}, #{address}, #{phone},
+	#{prof_photo}, #{ext_exp}, #{bank}, #{bank_ac_num}, #{college}, #{college_dept}, #{par_id}, #{user_grade})
+</insert>
+<select id="read" resultType="User_InfoVO">
+	select * from user_info
+</select>
+<select id="checkid" resultType="int">
+	select count(*)from user_info where user_id = #{user_id}
+</select>
+<select id="login" resultType="int">
+	select count(*)from user_info where user_id = #{user_id} and user_pw = #{user_pw}
+</select>
+<select id="ext_listAll" resultType="Ext_InfoVO">
+	select u.user_name, u.college, u.college_dept, e.class_poss_area, e.ext_id, 
+	e.tuit_fees from ext_info e, user_info u where e.user_id = u.user_id order by e.end_rc_date 
+</select>
+</mapper>

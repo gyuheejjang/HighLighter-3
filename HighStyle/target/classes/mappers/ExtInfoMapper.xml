@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yjc.wdb.highlighter.Ext_InfoMapper">
+
+<resultMap id="Ext_listAll" type="java.util.HashMap">
+	<result property="user_name" column="username"></result>
+	<result property="college" column="college"></result>
+	<result property="college_dept" column="college_dept"></result>
+	<result property="class_poss_area" column="class_poss_area"></result>
+	<result property="subject" column="subject"></result>
+	<result property="tuit_fees" column="tuit_fees"></result>
+</resultMap>
+<select id="listAll" resultMap="Ext_listAll">
+	select u.user_name AS user_name, u.college AS college, 
+	u.college_dept AS college_dept, e.class_poss_area AS class_poss_area,
+	SUBSTR(e.ext_id,3,4) AS subject, e.tuit_fees AS tuit_fees
+	from ext_info e, user_info u 
+	where e.user_id = u.user_id order by e.end_rc_date 
+</select>
+</mapper>
